@@ -120,7 +120,7 @@ class Shuttle:
         self.unigue_cells = 0
         self.map[self.__planet] = [[False for i in range(planet.width)] for j in range(planet.height)]
 
-    def go_to_base(self):
+    def return_to_base(self):
         self.__x = self.__planet.base_x
         self.__y = self.__planet.base_y
 
