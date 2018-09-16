@@ -134,6 +134,7 @@ class Shuttle:
         self.photo = None
 
     def go_to_planet(self, planet):
+        self.direction = "North"
         if planet == None:
             print("Такой планеты не существует.")
             return
@@ -153,7 +154,7 @@ class Shuttle:
         print("Местное время: {} минут".format(self.time))
         print("Пройдено клеток: {}".format(self.cells))
         print("Пройдено уникальных клеток: {}".format(self.unigue_cells))
-        print("Исследовано ровно {}% процентов планеты".format(100 * self.unigue_cells / (self.__planet.width * self.__planet.height)))
+        print("Исследовано {}% процентов планеты".format(100 * self.unigue_cells / (self.__planet.width * self.__planet.height)))
 
     def restart_stat(self):
         self.time = 0
