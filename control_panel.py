@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import random
+
+
 class Planet:
-    def __init__(self, width=6, height=7, base_x = 0, base_y = 0, hills=0, shape="Square"):
+    def __init__(self, width=6, height=7, base_x=0, base_y=0, hills=0, shape="Square"):
         self.area = [[dict() for i in range(height)] for j in range(width)]
         self.width = width
         self.height = height
@@ -20,21 +22,25 @@ class Planet:
         self.area[base_x][base_y]["objects"] = ["База"]
         self.base_x = base_x
         self.base_y = base_y
+
     def place_objects(self, obj_amount, obj_name):
         ready_objs = 0
         while ready_objs < obj_amount:
             obj_x = random.randint(0, self.width - 1)
             obj_y = random.randint(0, self.height - 1)
-            if self.area[obj_x][obj_y]["surface"] == 0 and obj_name not in self.area[obj_x][obj_y]["artifacts"] and (obj_x != self.base_x or obj_y != self.base_y):
+            if self.area[obj_x][obj_y]["surface"] == 0 and obj_name not in self.area[obj_x][obj_y]["artifacts"] and (
+                    obj_x != self.base_x or obj_y != self.base_y):
                 self.area[obj_x][obj_y]["artifacts"].append(obj_name)
                 ready_objs += 1
 
+
 def generate_random_hilled_planet():
-    ground_9 = Planet(base_x=1, base_y=0, hills = 10)
+    ground_9 = Planet(base_x=1, base_y=0, hills=10)
     return ground_9
 
+
 def generate_real_planet(player):
-    ground_10 = Planet(width=4, height = 5, base_x=1, base_y=0, shape="Sphere")
+    ground_10 = Planet(width=4, height=5, base_x=1, base_y=0, shape="Sphere")
     ground_10.area[0][0]["surface"] = 1
     ground_10.area[0][1]["surface"] = 1
     ground_10.area[0][2]["surface"] = 1
@@ -47,11 +53,13 @@ def generate_real_planet(player):
     if player == 1:
         return ground_10
     else:
-        ground_11 = Planet(width=ground_10.height, height = ground_10.width, base_x=ground_10.base_y, base_y=ground_10.base_y, shape="Sphere")
+        ground_11 = Planet(width=ground_10.height, height=ground_10.width, base_x=ground_10.base_y,
+                           base_y=ground_10.base_y, shape="Sphere")
         for i in range(ground_11.width):
             for j in range(ground_11.height):
                 ground_11.area[i][j]["surface"] = ground_10.area[j][i]["surface"]
                 ground_11.area[i][j]["artifacts"] = ground_10.area[j][i]["artifacts"]
+
 
 def renew_resources():
     ground_1 = Planet(base_x=1, base_y=0)
@@ -90,15 +98,14 @@ def renew_resources():
     ground_6.area[2][3]["artifacts"] = ["Палка колбасы"]
     ground_6.area[3][2]["artifacts"] = ["Хомяк"]
 
-
     ground_7 = Planet(base_x=2, base_y=2)
     ground_7.area[2][1]["artifacts"] = ["Мина"]
     ground_7.area[1][2]["artifacts"] = ["Пельмешек"]
     ground_7.area[2][3]["artifacts"] = ["Мина"]
     ground_7.area[3][2]["artifacts"] = ["Мина"]
 
-    ground_8 = Planet(width=5, height=random.randint(100,1000), base_x=1, base_y=0)
-    ground_8.area[1][ground_8.height-1]["artifacts"] = ["Подорожник"]
+    ground_8 = Planet(width=5, height=random.randint(100, 1000), base_x=1, base_y=0)
+    ground_8.area[1][ground_8.height - 1]["artifacts"] = ["Подорожник"]
 
     ground_9 = Planet(width=100, height=1000, base_x=0, base_y=0)
     for i in range(ground_9.width):
@@ -111,7 +118,8 @@ def renew_resources():
     ground_12 = generate_real_planet(1)
     ground_13 = generate_real_planet(2)
 
-    return [None, ground_1, ground_2, ground_3, ground_4, ground_5, ground_6, ground_7, ground_8, ground_9, ground_10, ground_11, ground_12, ground_13]
+    return [None, ground_1, ground_2, ground_3, ground_4, ground_5, ground_6, ground_7, ground_8, ground_9, ground_10,
+            ground_11, ground_12, ground_13]
 
 
 class Shuttle:
@@ -142,9 +150,10 @@ class Shuttle:
         if self.__planet is None:
             print("Сначала переместите меня на планету.")
             return
-        print("Время в движении: {}".format(self.time))
+        print("Местное время: {} минут".format(self.time))
         print("Пройдено клеток: {}".format(self.cells))
         print("Пройдено уникальных клеток: {}".format(self.unigue_cells))
+        print("Исследовано ровно {}% процентов планеты".format(100 * self.unigue_cells / (self.__planet.width * self.__planet.height)))
 
     def restart_stat(self):
         self.time = 0
@@ -257,8 +266,3 @@ class Shuttle:
 
     def show_coordinate(self):
         print((self.__x, self.__y))
-
-
-
-
-
