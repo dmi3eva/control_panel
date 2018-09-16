@@ -2,7 +2,7 @@
 import random
 class Planet:
     def __init__(self, width=6, height=7, base_x = 0, base_y = 0, hills=0, shape="Square"):
-        self.area = [[dict() for i in range(width)] for j in range(height)]
+        self.area = [[dict() for i in range(height)] for j in range(width)]
         self.width = width
         self.height = height
         self.shape = shape
