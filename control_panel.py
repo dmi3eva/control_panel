@@ -79,7 +79,7 @@ def renew_resources():
     ground_4.area[2][3]["artifacts"] = ["Котик"]
     ground_4.area[1][4]["artifacts"] = ["Котик"]
 
-    ground_5 = Planet(width=100, height=1000, base_x=1, base_y=0)
+    ground_5 = Planet(width=100, height=1000, base_x=0, base_y=0)
     for i in range(ground_5.width):
         for j in range(ground_5.height):
             ground_5.area[i][j]["artifacts"] = ["Рис"]
@@ -100,7 +100,7 @@ def renew_resources():
     ground_8 = Planet(width=5, height=777, base_x=1, base_y=0)
     ground_8.area[1][776]["artifacts"] = ["Подорожник"]
 
-    ground_9 = Planet(width=100, height=1000, base_x=1, base_y=0)
+    ground_9 = Planet(width=100, height=1000, base_x=0, base_y=0)
     for i in range(ground_9.width):
         for j in range(ground_9.height):
             ground_9.area[i][j]["artifacts"] = ["Рис"]
