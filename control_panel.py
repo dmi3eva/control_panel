@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 class Planet:
-    def __init__(self, width=6, height=6, base_x = 0, base_y = 0, hills=0, shape="Square"):
+    def __init__(self, width=6, height=7, base_x = 0, base_y = 0, hills=0, shape="Square"):
         self.area = [[dict() for i in range(width)] for j in range(height)]
         self.width = width
         self.height = height
@@ -29,13 +29,12 @@ class Planet:
                 self.area[obj_x][obj_y]["artifacts"].append(obj_name)
                 ready_objs += 1
 
-def generate_planet_9():
+def generate_random_hilled_planet():
     ground_9 = Planet(base_x=1, base_y=0, hills = 10)
     return ground_9
 
-
-def generate_planet_10():
-    ground_10 = Planet(base_x=1, base_y=0, shape="Sphere")
+def generate_real_planet(player):
+    ground_10 = Planet(width=4, height = 5, base_x=1, base_y=0, shape="Sphere")
     ground_10.area[0][0]["surface"] = 1
     ground_10.area[0][1]["surface"] = 1
     ground_10.area[0][2]["surface"] = 1
@@ -45,7 +44,14 @@ def generate_planet_10():
     ground_10.area[3][3]["surface"] = 1
     ground_10.area[3][4]["surface"] = 1
     ground_10.place_objects(1, "Золото")
-    return ground_10
+    if player == 1:
+        return ground_10
+    else:
+        ground_11 = Planet(width=ground_10.height, height = ground_10.width, base_x=ground_10.base_y, base_y=ground_10.base_y, shape="Sphere")
+        for i in range(ground_11.width):
+            for j in range(ground_11.height):
+                ground_11.area[i][j]["surface"] = ground_10.area[j][i]["surface"]
+                ground_11.area[i][j]["artifacts"] = ground_10.area[j][i]["artifacts"]
 
 def renew_resources():
     ground_1 = Planet(base_x=1, base_y=0)
@@ -73,16 +79,39 @@ def renew_resources():
     ground_4.area[2][3]["artifacts"] = ["Котик"]
     ground_4.area[1][4]["artifacts"] = ["Котик"]
 
-    ground_7 = Planet(base_x=1, base_y=0)
-    ground_7.area[4][3]["artifacts"] = ["Бомба"]
+    ground_5 = Planet(width=100, height=1000, base_x=1, base_y=0)
+    for i in range(ground_5.width):
+        for j in range(ground_5.height):
+            ground_5.area[i][j]["artifacts"] = ["Рис"]
 
-    ground_8 = Planet(base_x=1, base_y=0, hills=10)
-    ground_8.place_objects(10, "Подорожник")
+    ground_6 = Planet(base_x=2, base_y=2)
+    ground_6.area[2][1]["artifacts"] = ["Пульт от телевизора"]
+    ground_6.area[1][2]["artifacts"] = ["Странный предмет"]
+    ground_6.area[2][3]["artifacts"] = ["Палка колбасы"]
+    ground_6.area[3][2]["artifacts"] = ["Хомяк"]
 
-    ground_9 = generate_planet_9()
-    ground_10 = generate_planet_10()
 
-    return [None, ground_1, ground_2, ground_3, ground_4, None, None, ground_7, ground_8, ground_9, ground_10]
+    ground_7 = Planet(base_x=2, base_y=2)
+    ground_7.area[2][1]["artifacts"] = ["Мина"]
+    ground_7.area[1][2]["artifacts"] = ["Пельмешек"]
+    ground_7.area[2][3]["artifacts"] = ["Мина"]
+    ground_7.area[3][2]["artifacts"] = ["Мина"]
+
+    ground_8 = Planet(width=5, height=777, base_x=1, base_y=0)
+    ground_8.area[1][776]["artifacts"] = ["Подорожник"]
+
+    ground_9 = Planet(width=100, height=1000, base_x=1, base_y=0)
+    for i in range(ground_9.width):
+        for j in range(ground_9.height):
+            ground_9.area[i][j]["artifacts"] = ["Рис"]
+    ground_9.area[734][215]["artifacts"] = ["Мина"]
+
+    ground_10 = generate_random_hilled_planet()
+    ground_11 = generate_random_hilled_planet()
+    ground_12 = generate_real_planet(1)
+    ground_13 = generate_real_planet(2)
+
+    return [None, ground_1, ground_2, ground_3, ground_4, None, None, ground_7, ground_8, ground_9, ground_10, ground_11, ground_12, ground_13]
 
 
 class Shuttle:
@@ -153,7 +182,8 @@ class Shuttle:
                     self.map[self.__planet][x][y] = True
                     self.unigue_cells += 1
                 for obj in self.__planet.area[x][y]["artifacts"]:
-                    if obj in self.box:
+                    print("hey"+obj)
+                    if obj in self.box.keys():
                         self.box[obj] += 1
                     else:
                         self.box[obj] = 1
