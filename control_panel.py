@@ -97,7 +97,7 @@ def renew_resources():
     ground_7.area[2][3]["artifacts"] = ["Мина"]
     ground_7.area[3][2]["artifacts"] = ["Мина"]
 
-    ground_8 = Planet(width=5, height=random.randint(1000), base_x=1, base_y=0)
+    ground_8 = Planet(width=5, height=random.randint(100,1000), base_x=1, base_y=0)
     ground_8.area[1][ground_8.height-1]["artifacts"] = ["Подорожник"]
 
     ground_9 = Planet(width=100, height=1000, base_x=0, base_y=0)
@@ -111,7 +111,7 @@ def renew_resources():
     ground_12 = generate_real_planet(1)
     ground_13 = generate_real_planet(2)
 
-    return [None, ground_1, ground_2, ground_3, ground_4, None, None, ground_7, ground_8, ground_9, ground_10, ground_11, ground_12, ground_13]
+    return [None, ground_1, ground_2, ground_3, ground_4, ground_5, ground_6, ground_7, ground_8, ground_9, ground_10, ground_11, ground_12, ground_13]
 
 
 class Shuttle:
@@ -126,6 +126,9 @@ class Shuttle:
         self.photo = None
 
     def go_to_planet(self, planet):
+        if planet == None:
+            print("Такой планеты не существует.")
+            return
         self.__planet = planet
         self.__x = planet.base_x
         self.__y = planet.base_y
