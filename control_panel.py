@@ -104,7 +104,7 @@ def renew_resources():
     for i in range(ground_9.width):
         for j in range(ground_9.height):
             ground_9.area[i][j]["artifacts"] = ["Рис"]
-    ground_9.area[734][215]["artifacts"] = ["Мина"]
+    ground_9.area[51][215]["artifacts"] = ["Мина"]
 
     ground_10 = generate_random_hilled_planet()
     ground_11 = generate_random_hilled_planet()
