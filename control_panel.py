@@ -185,7 +185,6 @@ class Shuttle:
                     self.map[self.__planet][x][y] = True
                     self.unigue_cells += 1
                 for obj in self.__planet.area[x][y]["artifacts"]:
-                    print("hey"+obj)
                     if obj in self.box.keys():
                         self.box[obj] += 1
                     else:
