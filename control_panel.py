@@ -231,8 +231,8 @@ class Shuttle:
             "West": (-1, 0),
             "South": (0, -1)
         }
-        x = self.__x + shift[self.direction][0]
-        y = self.__y + shift[self.direction][1]
+        x = self.__x + shift[direction][0]
+        y = self.__y + shift[direction][1]
         if self.__planet.shape in ["Square", "Torus"] and (x < 0 or x >= self.__planet.width):
             return "Космос"
         if self.__planet.shape in ["Square"] and (y < 0 or y >= self.__planet.height):
