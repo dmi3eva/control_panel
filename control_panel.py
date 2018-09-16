@@ -138,7 +138,7 @@ class Shuttle:
         self.cells = 0
         self.time = 0
 
-    def get_stat(self):
+    def show_stat(self):
         if self.__planet is None:
             print("Сначала переместите меня на планету.")
             return
