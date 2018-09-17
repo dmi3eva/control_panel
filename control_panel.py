@@ -9,7 +9,7 @@ def generate_random_phrase(num):
                 "Говори, человек, что дальше?", "Готов к приключениям!", "Лалала-лала, все будет хорошо!",
                 "Жду дальнейших указаний!", "Надеюсь, вы уверены, что нам это надо.", "Готов к работе, как никогда!",
                 "Чудо планета!", "Йуху!!!!", "Ура!!!", "Отличная планета!", "Чувствую будет несладко!"]
-        return random.randint(0, len(bank) - 1)
+        return bank[random.randint(0, len(bank) - 1)]
 
 
 class Planet:
@@ -145,6 +145,7 @@ class Shuttle:
         self.history = []
 
     def go_to_planet(self, planet):
+        self.history = []
         self.direction = "North"
         if planet == None:
             print("Такой планеты не существует.")
