@@ -2,6 +2,16 @@
 import random
 
 
+def generate_random_phrase(num):
+    if num == 1:
+        bank = ["Тут миленько!", "Если честно: планетка так себе.", "Тут холодно! Можно назад?",
+                "Как-то тут попахивает неприятно!", "А можно в следующий раз в Диснейленд?",
+                "Говори, человек, что дальше?", "Готов к приключениям!", "Лалала-лала, все будет хорошо!",
+                "Жду дальнейших указаний!", "Надеюсь, вы уверены, что нам это надо.", "Готов к работе, как никогда!",
+                "Чудо планета!", "Йуху!!!!", "Ура!!!", "Отличная планета!", "Чувствую будет несладко!"]
+        return random.randint(0, len(bank) - 1)
+
+
 class Planet:
     def __init__(self, width=6, height=7, base_x=0, base_y=0, hills=0, shape="Square"):
         self.area = [[dict() for i in range(height)] for j in range(width)]
@@ -132,17 +142,19 @@ class Shuttle:
         self.unigue_cells = None
         self.test = None
         self.photo = None
+        self.history = []
 
     def go_to_planet(self, planet):
         self.direction = "North"
         if planet == None:
             print("Такой планеты не существует.")
             return
+        print("Я переместился на указанную планету. " + generate_random_phrase(1))
         self.__planet = planet
         self.__x = planet.base_x
         self.__y = planet.base_y
         self.map = dict()
-        self.map[planet] = [[False for i in range(planet.width*10)] for j in range(planet.height*10)]
+        self.map[planet] = [[False for i in range(planet.width * 10)] for j in range(planet.height * 10)]
         self.unigue_cells = 0
         self.cells = 0
         self.time = 0
@@ -154,17 +166,22 @@ class Shuttle:
         print("Местное время: {} минут".format(self.time))
         print("Пройдено клеток: {}".format(self.cells))
         print("Пройдено уникальных клеток: {}".format(self.unigue_cells))
-        print("Исследовано {}% процентов планеты".format(100 * self.unigue_cells / (self.__planet.width * self.__planet.height)))
+        print("Исследовано {}% процентов планеты".format(
+            100 * self.unigue_cells / (self.__planet.width * self.__planet.height)))
 
     def restart_stat(self):
+        print("Статистика сброшена")
         self.time = 0
         self.cells = 0
         self.unigue_cells = 0
         self.map[self.__planet] = [[False for i in range(planet.width)] for j in range(planet.height)]
 
     def return_to_base(self):
+        self.hostory = []
+        print("Я на базе. Смотрю на Север.")
         self.__x = self.__planet.base_x
         self.__y = self.__planet.base_y
+        self.direction = "North"
 
     def go(self):
         self.time += 1
@@ -190,6 +207,7 @@ class Shuttle:
             if self.__planet.area[x][y]["surface"] == 0:
                 self.__x = x
                 self.__y = y
+                self.history.append((x, y))
                 self.cells += 1
                 if not self.map[self.__planet][x][y]:
                     self.map[self.__planet][x][y] = True
@@ -219,6 +237,7 @@ class Shuttle:
             print("{}: {} шт.".format(obj, self.box[obj]))
 
     def empty_box(self):
+        print("Я опустошил свой кузов.")
         self.box = dict()
 
     def restart_time(self):
@@ -267,3 +286,5 @@ class Shuttle:
 
     def show_coordinate(self):
         print((self.__x, self.__y))
+
+
