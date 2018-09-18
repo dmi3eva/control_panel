@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
+from time import sleep
+from IPython.display import clear_output
 
 
 def generate_random_phrase(num):
@@ -10,6 +12,7 @@ def generate_random_phrase(num):
                 "Жду дальнейших указаний!", "Надеюсь, вы уверены, что нам это надо.", "Готов к работе, как никогда!",
                 "Чудо планета!", "Йуху!!!!", "Ура!!!", "Отличная планета!", "Чувствую будет несладко!"]
         return bank[random.randint(0, len(bank) - 1)]
+    return ""
 
 
 class Planet:
@@ -75,8 +78,9 @@ def renew_resources():
     ground_1 = Planet(base_x=1, base_y=0)
     ground_1.area[1][3]["artifacts"] = ["Яблоко"]
 
-    ground_2 = Planet(base_x=1, base_y=0)
+    ground_2 = Planet(base_x=1, base_y=0, width=1000, height=1000)
     ground_2.area[2][1]["artifacts"] = ["Яблоко"]
+    ground_2.area[1][777]["artifacts"] = ["Пульт от телевизора"]
 
     ground_3 = Planet(base_x=1, base_y=0)
     ground_3.area[1][1]["artifacts"] = ["Банан"]
@@ -103,7 +107,7 @@ def renew_resources():
             ground_5.area[i][j]["artifacts"] = ["Рис"]
 
     ground_6 = Planet(base_x=2, base_y=2)
-    ground_6.area[2][1]["artifacts"] = ["Пульт от телевизора"]
+    ground_6.area[2][1]["artifacts"] = ["Камушек"]
     ground_6.area[1][2]["artifacts"] = ["Странный предмет"]
     ground_6.area[2][3]["artifacts"] = ["Палка колбасы"]
     ground_6.area[3][2]["artifacts"] = ["Хомяк"]
@@ -287,5 +291,39 @@ class Shuttle:
 
     def show_coordinate(self):
         print((self.__x, self.__y))
+
+    def get_planet(self):
+        return self.__planet
+
+def visualize(shuttles, mode="animation"):
+    time = max([len(shuttle.history) for shuttle in shuttles])
+    planet = shuttles[0].get_planet()
+    for t in range(time):
+        area = ""
+        for h in range(planet.width):
+            for w in range(planet.height):
+                if len(planet.area[h][w]["artifacts"]) > 0:
+                    area += "*"
+                else:
+                    if planet.area[h][w]["surface"] > 0:
+                        area += "#"
+                    else:
+                        symb = " "
+                        num = 0
+                        for i in range(len(shuttles)):
+                            if len(shuttles[i].history) >= time:
+                                if shuttles[i].history[t][0] == h and shuttles[i].history[t][1] == w:
+                                    num += i + 1
+                        if num > 0:
+                            symb = str(num)
+                        area += symb
+            area += "\n"
+        print(area)
+        if mode == "input":
+            waiting = input()
+        else:
+            sleep(1)
+            clear_output()
+        print()
 
 
