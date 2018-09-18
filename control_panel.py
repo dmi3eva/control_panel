@@ -295,7 +295,7 @@ class Shuttle:
     def get_planet(self):
         return self.__planet
 
-def visualize(shuttles, mode="animation"):
+def visualize(shuttles, delay=3, mode="animation"):
     time = max([len(shuttle.history) for shuttle in shuttles])
     planet = shuttles[0].get_planet()
     for t in range(time):
@@ -318,13 +318,10 @@ def visualize(shuttles, mode="animation"):
                             symb = str(num)
                 area += symb + "|"
             area += "\n"
-            for w in range(planet.height):
-                area += "-"
-            area += "\n"
         print(area)
         if mode == "input":
             waiting = input()
         else:
-            sleep(5)
+            sleep(delay)
         clear_output()
 
