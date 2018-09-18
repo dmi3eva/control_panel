@@ -296,21 +296,26 @@ class Shuttle:
     def get_planet(self):
         return self.__planet
 
-def visualize(shuttles, delay=3, mode="animation", planet=None):
+def visualize(shuttles, delay=3, mode="animation", planet=None, save_history=False):
     time = max([len(shuttle.history) for shuttle in shuttles])
+    for i in range(len(shuttles)):
+        shuttles[i].history += [shuttles[i].history[-1]] * (time - len(shuttles[i].history))
     if planet == None:
         planet = shuttles[0].get_planet()
-
-    print(shuttles[0].history)
-    print(planet.area)
-    z = input()
-
     for t in range(time):
         area = ""
-        for h in range(planet.width):
-            for w in range(planet.height):
+        for w in range(planet.height-1,-1,-1):
+            for h in range(planet.width):
                 if len(planet.area[h][w]["artifacts"]) > 0:
-                    symb = "*"
+                    num = 0
+                    for i in range(len(shuttles)):
+                        if len(shuttles[i].history) > t:
+                            if shuttles[i].history[t][0] == h and shuttles[i].history[t][1] == w:
+                                num += i + 1
+                                symb = str(num)
+                                planet.area[h][w]["artifacts"] = []
+                    if num == 0:
+                        symb = "*"
                 else:
                     if planet.area[h][w]["surface"] > 0:
                         symb = "#"
@@ -318,7 +323,7 @@ def visualize(shuttles, delay=3, mode="animation", planet=None):
                         symb = " "
                         num = 0
                         for i in range(len(shuttles)):
-                            if len(shuttles[i].history) >= time:
+                            if len(shuttles[i].history) > t:
                                 if shuttles[i].history[t][0] == h and shuttles[i].history[t][1] == w:
                                     num += i + 1
                         if num > 0:
@@ -330,5 +335,6 @@ def visualize(shuttles, delay=3, mode="animation", planet=None):
             waiting = input()
         else:
             sleep(delay)
-        clear_output()
+        if not save_history:
+            clear_output()
 
