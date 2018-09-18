@@ -296,9 +296,10 @@ class Shuttle:
     def get_planet(self):
         return self.__planet
 
-def visualize(shuttles, delay=3, mode="animation"):
+def visualize(shuttles, delay=3, mode="animation", planet=None):
     time = max([len(shuttle.history) for shuttle in shuttles])
-    planet = shuttles[0].get_planet()
+    if planet == None:
+        planet = shuttles[0].get_planet()
 
     print(shuttles[0].history)
     print(planet.area)
@@ -308,7 +309,7 @@ def visualize(shuttles, delay=3, mode="animation"):
         area = ""
         for h in range(planet.width):
             for w in range(planet.height):
-                if len(shuttles[0].get_planet().area[h][w]["artifacts"]) > 0:
+                if len(planet.area[h][w]["artifacts"]) > 0:
                     symb = "*"
                 else:
                     if planet.area[h][w]["surface"] > 0:
