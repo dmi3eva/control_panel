@@ -303,10 +303,10 @@ def visualize(shuttles, mode="animation"):
         for h in range(planet.width):
             for w in range(planet.height):
                 if len(planet.area[h][w]["artifacts"]) > 0:
-                    area += "*"
+                    symb = "*"
                 else:
                     if planet.area[h][w]["surface"] > 0:
-                        area += "#"
+                        symb = "#"
                     else:
                         symb = " "
                         num = 0
@@ -316,14 +316,15 @@ def visualize(shuttles, mode="animation"):
                                     num += i + 1
                         if num > 0:
                             symb = str(num)
-                        area += symb
+                area += symb + "|"
+            area += "\n"
+            for w in range(planet.height):
+                area += "-"
             area += "\n"
         print(area)
         if mode == "input":
             waiting = input()
         else:
-            sleep(3)
+            sleep(5)
         clear_output()
-        print()
-
 
