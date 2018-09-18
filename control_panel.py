@@ -298,6 +298,11 @@ class Shuttle:
 def visualize(shuttles, delay=3, mode="animation"):
     time = max([len(shuttle.history) for shuttle in shuttles])
     planet = shuttles[0].get_planet()
+
+    print(shuttles[0].history)
+    print(planet.area)
+    z = input()
+
     for t in range(time):
         area = ""
         for h in range(planet.width):
