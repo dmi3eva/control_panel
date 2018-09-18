@@ -322,8 +322,8 @@ def visualize(shuttles, mode="animation"):
         if mode == "input":
             waiting = input()
         else:
-            sleep(1)
-            clear_output()
+            sleep(3)
+        clear_output()
         print()
 
 
