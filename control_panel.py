@@ -149,7 +149,6 @@ class Shuttle:
         self.history = []
 
     def go_to_planet(self, planet):
-        self.history = []
         self.direction = "North"
         if planet == None:
             print("Такой планеты не существует.")
@@ -158,6 +157,7 @@ class Shuttle:
         self.__planet = planet
         self.__x = planet.base_x
         self.__y = planet.base_y
+        self.history = [(self.__x, self.__y)]
         self.map = dict()
         self.map[planet] = [[False for i in range(planet.width * 10)] for j in range(planet.height * 10)]
         self.unigue_cells = 0
@@ -182,10 +182,11 @@ class Shuttle:
         self.map[self.__planet] = [[False for i in range(planet.width)] for j in range(planet.height)]
 
     def return_to_base(self):
-        self.hostory = []
+
         print("Я на базе. Смотрю на Север.")
         self.__x = self.__planet.base_x
         self.__y = self.__planet.base_y
+        self.history = [(self.__x, self.__y)]
         self.direction = "North"
 
     def go(self):
@@ -307,7 +308,7 @@ def visualize(shuttles, delay=3, mode="animation"):
         area = ""
         for h in range(planet.width):
             for w in range(planet.height):
-                if len(planet.area[h][w]["artifacts"]) > 0:
+                if len(shuttles[0].__planet.area[h][w]["artifacts"]) > 0:
                     symb = "*"
                 else:
                     if planet.area[h][w]["surface"] > 0:
