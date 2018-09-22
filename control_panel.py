@@ -159,7 +159,7 @@ class Shuttle:
         self.__y = planet.base_y
         self.history = [(self.__x, self.__y)]
         self.map = dict()
-        self.map[planet] = [[False for i in range(planet.width * 10)] for j in range(planet.height * 10)]
+        self.map[planet] = [[False for i in range(planet.height * 10)] for j in range(planet.width * 10)]
         self.unigue_cells = 0
         self.cells = 0
         self.time = 0
